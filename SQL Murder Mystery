@@ -1,0 +1,68 @@
+/* SQL MURDER MYSTERY - A PUZZLE BY KNIGHTLAB */
+
+/* CRIME SCENE REPORT */
+SELECT * FROM crime_scene_report
+WHERE date = 20180115 
+AND city = "SQL City"
+AND type = "murder";
+
+/* WITNESSES INFO */
+SELECT * FROM person
+WHERE address_street_name = "Northwestern Dr"
+ORDER BY address_number ASC;
+
+
+-- Witness #1: Annabel Miller
+-- Witness #2: Morty Schapiro
+
+
+/* WITNESS INTERVIEW INFO */
+SELECT person.id, person.name, interview.transcript FROM person
+JOIN interview
+WHERE id = person_id
+AND person.name = "Annabel Miller";
+
+
+/*FIND GYM MEMBER WITH BAG STARTING WITH 48Z AND PLATE WITH "H42W*/
+SELECT get_fit_now_member.id, get_fit_now_member.person_id, get_fit_now_member.name, get_fit_now_member.membership_status FROM get_fit_now_member
+WHERE id LIKE "48Z%";
+
+
+/*MATCH PERSON ID'S TO LICENSE ID'S*/
+SELECT id, name, license_id FROM person
+WHERE id = '49550' 
+OR id= '28819'
+OR id = '67318';
+
+
+SELECT id, plate_number FROM drivers_license
+WHERE id = '173289'
+OR id = '309485'
+OR id = '423327';
+
+
+-- ANSWER:  Jeremy Bowers
+
+
+/*QUERY FOR TESLA MODEL S OWNERS WITH RED HAIR*/
+SELECT id, height, hair_color, car_make, car_model from drivers_license
+WHERE car_make = 'Tesla'
+AND car_model = 'Model S'
+AND hair_color = 'red';
+
+
+/*QUERY FOR PEOPLE WHO ATTENDED THE SQL SYMPHONY IN DECEMEMBER 3 TIMES */
+SELECT person_id, event_name, date, name
+FROM facebook_event_checkin
+JOIN person
+ON person_id = id
+WHERE event_name = "SQL Symphony Concert"
+AND date LIKE '201712%'
+GROUP BY person_id
+HAVING COUNT(person_id) = 3;
+
+
+-- ANSWER: Miranda Priestly
+
+
+
