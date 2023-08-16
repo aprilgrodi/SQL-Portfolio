@@ -1,0 +1,216 @@
+/*EMPLOYEE EXPLORATION */
+
+/* CREATE EMPLOYEE DEMOGRAPHICS TABLE */
+CREATE TABLE EmployeeDemographics
+(EmployeeID int, 
+FirstName varchar(50),
+LastName varchar(50),
+Age int,
+Gender varchar(50)
+);
+
+/* CREATE EMPLOYEE SALARY TABLE */
+CREATE TABLE EmployeeSalary
+(EmployeeID int,
+JobTitle varchar(50),
+Salary int);
+
+/* INSERT DATA INTO TABLES */
+--INSERT INTO EmployeeDemographics VALUES
+--(1001, 'Tommy', 'Shelby', 30, 'Male'),
+--(1002, 'Arthur', 'Shelby', 33, 'Male'),
+--(1003, 'Polly', 'Gray', 45, 'Female'),
+--(1004, 'John', 'Shelby', 25, 'Male'),
+--(1005, 'Ava', 'Shelby', 20, 'Female'),
+--(1006, 'Grace', 'Burgess', 26, 'Female'),
+--(1007, 'Michael', 'Gray', 18, 'Male'),
+--(1008, 'Alfie', 'Solomons', 40, 'Male'),
+--(1009, 'Danny', 'Whizzbang', 32, 'Male'),
+--(1010, 'Freddie', 'Thorne', 30, 'Male'),
+--(1011, 'Lizzie', 'Stark', 34, 'Female');
+
+
+/* INSERT EMPLOYEE SALARY INFO INTO TABLE */
+INSERT INTO EmployeeSalary VALUES
+(1001, 'Businessman', 50000),
+(1002, 'Bar Owner', 40000),
+(1003, 'Secretary', 20000),
+(1004, 'Bookkeeper', 40000),
+(1005, 'Secretary', 14000),
+(1006, 'Barmaid', 16000),
+(1007, 'Accountant', 30000),
+(1008, 'Baker', 55000),
+(1009, 'Mechanic', 15000),
+(1010, 'Machine Operator', 18000),
+(1011, 'Secretary', 14000) 
+
+
+/* SELECT TOP 5 ROWS TO SAMPLE DATA*/
+SELECT TOP 5 *
+FROM EmployeeDemographics;
+
+
+/* CALCULATE ALL JOB TITLES*/
+SELECT DISTINCT JobTitle
+FROM EmployeeSalary;
+
+/* FIND MAX SALARY */
+SELECT MAX(Salary) AS MaxSalary
+FROM EmployeeSalary;
+
+
+/* FIND MIN SALARY */
+SELECT MIN(Salary) AS MinimumSalary
+FROM EmployeeSalary;
+
+
+/* FIND AVERAGE SALARY */
+SELECT AVG(Salary) AS AverageSalary
+FROM EmployeeSalary;
+
+
+/* FIND ALL WORKERS WITH LAST NAME 'SHELBY' */
+SELECT *
+FROM EmployeeDemographics 
+WHERE LastName = 'Shelby';
+
+
+/* FIND ALL EMPLOYEES WHO ARE NOT SHELBYS */
+SELECT * 
+FROM EmployeeDemographics 
+WHERE LastName != 'Shelby';
+
+
+/* FIND EMPLOYEES WITH SALARIES LESS THAN 20000 */
+SELECT *
+FROM EmployeeSalary 
+WHERE Salary < 20000;
+
+
+/* FIND EMPLOYEES WITH SALARIES GREATER THAN 40000 */
+SELECT *
+FROM EmployeeSalary 
+WHERE Salary > 20000;
+
+
+/* FIND EMPLOYEES WITH LAST NAME SHELBY AND SALARY > 20000 */
+SELECT * 
+FROM EmployeeDemographics
+JOIN EmployeeSalary
+ON EmployeeDemographics.EmployeeID = EmployeeSalary.EmployeeID
+WHERE LastName = 'Shelby'
+AND Salary > 20000;
+
+
+/* FIND ALL MALE EMPLOYEES OVER 25 YEARS OLD */
+SELECT *
+FROM EmployeeDemographics
+WHERE Gender = 'Male'
+AND Age > 25;
+
+
+/* FIND ALL EMPLOYEES NAMED ARTHUR OR AGE 30 */
+SELECT *
+FROM EmployeeDemographics
+WHERE FirstName = 'Arthur'
+OR Age = 30;
+
+
+/* FIND THE SUM OF ALL FEMALE EMPLOYEE'S SALARIES */
+SELECT SUM(Salary) as SumOfSalaries
+FROM EmployeeDemographics 
+JOIN EmployeeSalary
+ON EmployeeDemographics.EmployeeID = EmployeeSalary.EmployeeID
+WHERE Gender = 'Female';
+
+
+/* FIND EMPLOYEES WITH JOB TITLE STARTS WITH BAR */
+SELECT * 
+FROM EmployeeDemographics
+JOIN EmployeeSalary 
+ON EmployeeDemographics.EmployeeID = EmployeeSalary.EmployeeID
+WHERE JobTitle LIKE 'Bar%';
+
+
+/* FIND JOB TITLES WITH MORE THAN ONE EMPLOYEE */
+SELECT JobTitle, COUNT(JobTitle)
+FROM EmployeeSalary
+GROUP BY JobTitle
+HAVING COUNT(JobTitle) > 1;
+
+
+/* FIND EMPLOYEES WITH LAST NAMES ENDING IN S */
+SELECT EmployeeID, FirstName, LastName 
+FROM EmployeeDemographics
+WHERE LastName LIKE '%S';
+
+
+/* FIND EMPLOYEES WITH NAMES INCLUDING POLLY OR MICHAEL */
+SELECT EmployeeID, FirstName, LastName
+FROM EmployeeDemographics
+WHERE Firstname IN ('Polly', 'Michael');
+
+
+/* FIND EMPLOYEE COUNT BY JOB TITLE */ 
+SELECT JobTitle, COUNT(JobTitle) AS Total
+FROM EmployeeSalary
+GROUP BY JobTitle;
+
+
+/* FIND EMPLOYEE COUNT BY GENDER */
+SELECT Gender, COUNT(Gender) AS Total
+FROM EmployeeDemographics
+GROUP BY Gender;
+
+
+/* EXPLORE EMPLOYEES BY GENDER AND AGE */
+SELECT Gender, Age, COUNT(Gender) AS Total
+FROM EmployeeDemographics
+GROUP BY Age, Gender;
+
+
+/* CREATE A QUERY WITH AN EMPLOYEE AGE CASE */
+SELECT FirstName, LastName, Age,
+CASE 
+	WHEN Age < 18 THEN 'Teenager'
+	WHEN AGE BETWEEN 18 AND 25 THEN 'Young Adult'
+	ELSE 'Adult'
+END
+FROM EmployeeDemographics
+WHERE AGE is NOT NULL
+ORDER BY Age;
+
+
+/* QUERY ALL EMPLOYEES, THEIR JOB TITLE AND SALARIES */
+SELECT EmployeeDemographics.EmployeeId, FirstName, LastName, JobTitle, Salary
+FROM EmployeeDemographics
+JOIN EmployeeSalary
+ON EmployeeDemographics.EmployeeID = EmployeeSalary.EmployeeID;
+
+
+/* QUERY EMPLOYEES WITH SALARIES < 30000 AND WHO ARE NOT SECRETARIES */
+SELECT EmployeeDemographics.EmployeeId, FirstName, LastName, JobTitle, Salary
+FROM EmployeeDemographics
+JOIN EmployeeSalary
+ON EmployeeDemographics.EmployeeID = EmployeeSalary.EmployeeID
+WHERE Salary < 30000
+AND JobTitle != 'Secretary';
+
+
+/* QUERY TO CALCULATE EMPLOYEE SALARY RAISES BY JOB TITLE */
+SELECT FirstName, LastName, JobTitle, Salary,
+CASE
+	WHEN JobTitle = 'Secretary' THEN Salary + (Salary * .15)
+	WHEN Jobtitle = 'Barmaid' THEN Salary + (Salary * .20)
+	ELSE Salary + (Salary * .25)
+END AS SalaryAfterRaise
+FROM EmployeeDemographics
+JOIN EmployeeSalary
+ON EmployeeDemographics.EmployeeID = EmployeeSalary.EmployeeID;
+
+
+/* UPDATE GRACE BURGESS TO GRACE SHELBY */
+UPDATE EmployeeDemographics
+SET lastName = 'Shelby'
+WHERE FirstName = 'Grace'
+AND LastName = 'Burgess';
