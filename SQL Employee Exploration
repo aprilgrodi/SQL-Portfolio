@@ -16,18 +16,18 @@ JobTitle varchar(50),
 Salary int);
 
 /* INSERT DATA INTO TABLES */
---INSERT INTO EmployeeDemographics VALUES
---(1001, 'Tommy', 'Shelby', 30, 'Male'),
---(1002, 'Arthur', 'Shelby', 33, 'Male'),
---(1003, 'Polly', 'Gray', 45, 'Female'),
---(1004, 'John', 'Shelby', 25, 'Male'),
---(1005, 'Ava', 'Shelby', 20, 'Female'),
---(1006, 'Grace', 'Burgess', 26, 'Female'),
---(1007, 'Michael', 'Gray', 18, 'Male'),
---(1008, 'Alfie', 'Solomons', 40, 'Male'),
---(1009, 'Danny', 'Whizzbang', 32, 'Male'),
---(1010, 'Freddie', 'Thorne', 30, 'Male'),
---(1011, 'Lizzie', 'Stark', 34, 'Female');
+INSERT INTO EmployeeDemographics VALUES
+(1001, 'Tommy', 'Shelby', 30, 'Male'),
+(1002, 'Arthur', 'Shelby', 33, 'Male'),
+(1003, 'Polly', 'Gray', 45, 'Female'),
+(1004, 'John', 'Shelby', 25, 'Male'),
+(1005, 'Ava', 'Shelby', 20, 'Female'),
+(1006, 'Grace', 'Burgess', 26, 'Female'),
+(1007, 'Michael', 'Gray', 18, 'Male'),
+(1008, 'Alfie', 'Solomons', 40, 'Male'),
+(1009, 'Danny', 'Whizzbang', 32, 'Male'),
+(1010, 'Freddie', 'Thorne', 30, 'Male'),
+(1011, 'Lizzie', 'Stark', 34, 'Female');
 
 
 /* INSERT EMPLOYEE SALARY INFO INTO TABLE */
